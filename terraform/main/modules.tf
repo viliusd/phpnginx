@@ -1,12 +1,3 @@
-# module "aws_ecr" {
-#     source = "../modules/aws_ecr"
-#     providers = {
-#     aws = aws
-#     }
-#     name = local.env_name
-#     env_name = "dev"
-# }
-
 module "aws_subnet" {
     source = "../modules/aws_subnet"
     providers = {
