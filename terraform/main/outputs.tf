@@ -17,3 +17,7 @@ output "ec2_instance_public_ip" {
 output "ec2_instance_id" {
     value = module.aws_ec2.ec2_instance_id
 }
+
+output "aws_lb_dns" {
+    value = module.aws_alb.aws_lb_dns
+}
