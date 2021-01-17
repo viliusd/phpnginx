@@ -1,0 +1,5 @@
+credentials.sec
+credentials.yml
+.terraform
+.idea
+.DS_Store
