@@ -17,37 +17,22 @@ variable "name" {
   }
 }
 
-variable "instance_ami_id" {
-  type = string
-  description = "EC2 instance AMI id ami-0ff4c8fb495a5a50d (Ubuntu)"
-}
-
-variable "instance_type" {
-  type = string
-  description = "EC2 instance type for example t2.micro"
-}
-
-variable "aws_subnet_id" {
-  type = string
-  description = "AWS Subnet id"
-}
-
-variable "tag_name" {
-  type = string
-  description = "EC2 instance tag name"
-}
-
 variable "aws_vpc_id" {
   type = string
   description = "AWS VPC id"
 }
 
-variable "ingress_cidr_block" {
-  type = list(string)
-  description = "list of IP allowed for incoming connections"
+variable "cidr_block" {
+  type = string
+  description = "VPC main cidr_block"
 }
 
-variable "public_key" {
+variable "ec2_aws_security_group" {
   type = string
-  description = "public_key"
+  description = "ec2_aws_security_group"
+}
+
+variable "aws_subnet_id" {
+  type = list(string)
+  description = "aws_subnet_id"
 }
