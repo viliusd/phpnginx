@@ -17,6 +17,11 @@ variable "name" {
   }
 }
 
+variable "vm_count" {
+  type = string
+  description = "(optional) describe your variable"
+}
+
 variable "instance_ami_id" {
   type = string
   description = "EC2 instance AMI id ami-0ff4c8fb495a5a50d (Ubuntu)"
@@ -37,7 +42,7 @@ variable "tag_name" {
   description = "EC2 instance tag name"
 }
 
-variable "aws_vpc_id" {
+variable "vpc_id" {
   type = string
   description = "AWS VPC id"
 }
