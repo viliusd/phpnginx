@@ -45,6 +45,7 @@ module "aws_alb" {
     cidr_block = "172.31.0.0/16"
     aws_vpc_id = aws_default_vpc.default.id
     ec2_aws_security_group = module.aws_ec2.ec2_aws_security_group
+    ec2_aws_security_group_http = module.aws_ec2.ec2_aws_security_group_http
     aws_subnet_id = ["subnet-0f55044d8e42b17bb", "subnet-0c2ad9b4068e701d8"] #Copying from default VPC created default subnet ids
-    aws_instance_id = "i-0a5074390deb83f77"
+    aws_instance_id = module.aws_ec2.ec2_instance_id[0]
 }

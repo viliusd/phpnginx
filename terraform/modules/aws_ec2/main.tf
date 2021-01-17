@@ -34,6 +34,30 @@ resource "aws_security_group" "allow_ssh" {
   }
 }
 
+resource "aws_security_group" "allow_http" {
+  name        = "allow_http"
+  description = "Allow ssh inbound traffic"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    description = "HTTP from VPC"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = var.ingress_cidr_block
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "allow_http"
+  }
+}
 
 
 resource "aws_network_interface" "aws_instance" {
@@ -53,15 +77,12 @@ resource "aws_instance" "name" {
   ami = var.instance_ami_id
   instance_type = var.instance_type
   key_name = aws_key_pair.communication_key.key_name
-  vpc_security_group_ids = [aws_security_group.allow_ssh.id]
+  vpc_security_group_ids = [aws_security_group.allow_ssh.id, aws_security_group.allow_http.id]
 
   user_data     = <<-EOF
                   #!/bin/bash
-                  sudo su
-                  apt install nginx
-                  echo "<p> My Instance! </p>" >> /var/www/html/index.html
-                  sudo systemctl enable nginx
-                  sudo systemctl start nginx
+                  sudo apt install nginx -y
+                  sudo ufw allow 'Nginx HTTP'
                   EOF
 
   

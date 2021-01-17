@@ -12,3 +12,7 @@ output "ec2_instance_public_ip" {
 output "ec2_aws_security_group" {
     value = aws_security_group.allow_ssh.id
 }
+
+output "ec2_aws_security_group_http" {
+    value = aws_security_group.allow_http.id
+}

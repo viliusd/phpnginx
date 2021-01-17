@@ -22,6 +22,11 @@ variable "ec2_aws_security_group" {
   description = "ec2_aws_security_group"
 }
 
+variable "ec2_aws_security_group_http" {
+  type = string
+  description = "ec2_aws_security_group_http"
+}
+
 variable "aws_subnet_id" {
   type = list(string)
   description = "aws_subnet_id"
@@ -31,3 +36,4 @@ variable "aws_instance_id" {
   type = string
   description = "aws_instance_id"
 }
+
