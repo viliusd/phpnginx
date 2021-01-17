@@ -27,8 +27,22 @@ variable "instance_type" {
   description = "EC2 instance type for example t2.micro"
 }
 
-variable "assign_public_ip_address" {
-  type = bool
-  description = "Assign public IP if not set default is false"
-  default = false
+variable "aws_subnet_id" {
+  type = string
+  description = "AWS Subnet id"
+}
+
+variable "tag_name" {
+  type = string
+  description = "EC2 instance tag name"
+}
+
+variable "aws_vpc_id" {
+  type = string
+  description = "AWS VPC id"
+}
+
+variable "ingress_cidr_block" {
+  type = list(string)
+  description = "list of IP allowed for incoming connections"
 }

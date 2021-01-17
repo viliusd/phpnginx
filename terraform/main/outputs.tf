@@ -14,6 +14,14 @@ output "aws_vpc_arn" {
     value = module.aws_vpc.aws_vpc_arn
 }
 
+
+# output "aws_default_vpc_id" {
+#     value = module.aws_default_vpc.aws_default_vpc_id
+# }
+
+# output "aws_default_vpc_arn" {
+#     value = module.aws_default_vpc.aws_default_vpc_arn
+# }
 output "aws_subnet_id" {
     value = module.aws_vpc.aws_subnet_id
 }

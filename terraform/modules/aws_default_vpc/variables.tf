@@ -17,17 +17,17 @@ variable "name" {
   }
 }
 
-variable "default_vpc_cidr_block" {
-  type = string
-  description = "VPC CIRD Block 10.0.0.0/16"
-}
+# variable "default_vpc_cidr_block" {
+#   type = string
+#   description = "VPC CIRD Block 10.0.0.0/16"
+# }
 
-variable "subnet_cidr_block" {
-  type = string
-  description = "Subnet CIRD Block 10.0.1.0/24"
-}
+# variable "subnet_cidr_block" {
+#   type = string
+#   description = "Subnet CIRD Block 10.0.1.0/24"
+# }
 
-variable "subnet_availability_zone" {
-  type = string
-  description = "Subnet availability zone eu-west-2a"
-}
+# variable "subnet_availability_zone" {
+#   type = string
+#   description = "Subnet availability zone eu-west-2a"
+# }
