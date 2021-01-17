@@ -37,6 +37,6 @@ module "aws_alb" {
     aws_vpc_id = aws_default_vpc.default.id
     ec2_aws_security_group = module.aws_ec2.ec2_aws_security_group
     ec2_aws_security_group_http = module.aws_ec2.ec2_aws_security_group_http
-    aws_subnet_id = ["subnet-0f55044d8e42b17bb", "subnet-0c2ad9b4068e701d8"] #Copying from default VPC created default subnet ids
+    aws_subnet_id = ["subnet-0f55044d8e42b17bb", "subnet-06841f57dd7b4cfa5", module.aws_subnet.aws_subnet_id] #Copying from default VPC created default subnet ids Requires atleast 2
     aws_instance_id = module.aws_ec2.ec2_instance_id[0]
 }
