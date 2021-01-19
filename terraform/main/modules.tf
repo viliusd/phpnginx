@@ -8,6 +8,7 @@ module "aws_subnet" {
     vpc_id = aws_default_vpc.default.id
     subnet_cidr_block = "172.31.48.0/20"
     subnet_availability_zone = "eu-west-2a"
+    subnet_availability_zone2 = "eu-west-2b"
 }
 
 module "aws_ec2" {
@@ -37,6 +38,7 @@ module "aws_alb" {
     aws_vpc_id = aws_default_vpc.default.id
     ec2_aws_security_group = module.aws_ec2.ec2_aws_security_group
     ec2_aws_security_group_http = module.aws_ec2.ec2_aws_security_group_http
-    aws_subnet_id = ["subnet-0f55044d8e42b17bb", "subnet-06841f57dd7b4cfa5", module.aws_subnet.aws_subnet_id] #Copying from default VPC created default subnet ids Requires atleast 2
+    aws_subnet_id = ["subnet-0665d668f78da64dd", "subnet-03ce676949d78089e", module.aws_subnet.aws_subnet_id] #Copying from default VPC created default subnet ids Requires atleast 2
     aws_instance_id = module.aws_ec2.ec2_instance_id[0]
+    aws_instance_id2 = module.aws_ec2.ec2_instance_id[1]
 }

@@ -32,6 +32,11 @@ variable "subnet_availability_zone" {
   description = "Subnet availability zone eu-west-2a"
 }
 
+variable "subnet_availability_zone2" {
+  type = string
+  description = "Subnet availability zone eu-west-2b"
+}
+
 variable "vpc_id" {
   type = string
   description = "vpc_id"

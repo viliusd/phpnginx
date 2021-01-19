@@ -8,10 +8,19 @@ provider "aws" {}
 #   }
 # }
 
-resource "aws_subnet" "main" {
+resource "aws_subnet" "public_green" {
   vpc_id     = var.vpc_id
   cidr_block = var.subnet_cidr_block
   availability_zone = var.subnet_availability_zone
+  tags = {
+    Name = "${var.name}-subnet"
+  }
+}
+
+resource "aws_subnet" "public_blue" {
+  vpc_id     = var.vpc_id
+  cidr_block = var.subnet_cidr_block
+  availability_zone = var.subnet_availability_zone2
   tags = {
     Name = "${var.name}-subnet"
   }

@@ -37,3 +37,9 @@ variable "aws_instance_id" {
   description = "aws_instance_id"
 }
 
+
+variable "aws_instance_id2" {
+  type = string
+  description = "aws_instance_id2"
+}
+

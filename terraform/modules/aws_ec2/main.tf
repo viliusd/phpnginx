@@ -60,12 +60,12 @@ resource "aws_security_group" "allow_http" {
 }
 
 
-resource "aws_network_interface" "aws_instance" {
-  subnet_id       = var.aws_subnet_id
-  tags = {
-    Name = "AWS_network_interface"
-  }
-}
+# resource "aws_network_interface" "aws_instance" {
+#   subnet_id       = var.aws_subnet_id
+#   tags = {
+#     Name = "AWS_network_interface"
+#   }
+# }
 
 resource "aws_key_pair" "communication_key" {
   key_name   = "communication-key"
@@ -75,6 +75,7 @@ resource "aws_key_pair" "communication_key" {
 resource "aws_instance" "name" {
   count = var.vm_count
   ami = var.instance_ami_id
+  subnet_id =  var.aws_subnet_id
   instance_type = var.instance_type
   key_name = aws_key_pair.communication_key.key_name
   vpc_security_group_ids = [aws_security_group.allow_ssh.id, aws_security_group.allow_http.id]
