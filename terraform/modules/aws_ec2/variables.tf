@@ -33,7 +33,7 @@ variable "instance_type" {
 }
 
 variable "aws_subnet_id" {
-  type = string
+  type = list(string)
   description = "AWS Subnet id"
 }
 
@@ -55,4 +55,34 @@ variable "ingress_cidr_block" {
 variable "public_key" {
   type = string
   description = "public_key"
+}
+
+variable "associate_public_ip_address" {
+  type = bool
+  default = false
+  description = "Associate IP address"
+}
+
+variable "enable_green_env" {
+  description = "Enable green environment"
+  type        = bool
+  default     = false
+}
+
+variable "enable_blue_env" {
+  description = "Enable blue environment"
+  type        = bool
+  default     = false
+}
+
+variable "green_instance_count" {
+  type = number
+  default = 2
+  description = "Green instance count"
+}
+
+variable "blue_instance_count" {
+  type = number
+  default = 2
+  description = "Blue instance count"
 }

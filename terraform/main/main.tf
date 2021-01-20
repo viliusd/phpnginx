@@ -26,4 +26,4 @@ resource "aws_default_vpc" "default" {
 
 #COMMANDS TO be executed prior deployment
 #aws ec2 create-default-vpc --region eu-west-2
-#terraform import aws_default_vpc.default vpc-02da2a8d455eaa7eb
+#terraform import aws_default_vpc.default vpc-03871b6fb7b916cdf

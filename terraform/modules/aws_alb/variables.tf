@@ -27,19 +27,12 @@ variable "ec2_aws_security_group_http" {
   description = "ec2_aws_security_group_http"
 }
 
+variable "aws_lb_target_group_blue_arn" {
+  type = string
+  description = "aws_lb_target_group_blue_arn"
+}
+
 variable "aws_subnet_id" {
   type = list(string)
-  description = "aws_subnet_id"
+  description = "AWS Subnet ids"
 }
-
-variable "aws_instance_id" {
-  type = string
-  description = "aws_instance_id"
-}
-
-
-variable "aws_instance_id2" {
-  type = string
-  description = "aws_instance_id2"
-}
-

@@ -22,22 +22,18 @@ variable "name" {
 #   description = "VPC CIRD Block 10.0.0.0/16"
 # }
 
-variable "subnet_cidr_block" {
-  type = string
-  description = "Subnet CIRD Block 10.0.1.0/24"
-}
+# variable "subnet_cidr_block" {
+#   type = string
+#   description = "Subnet CIRD Block 10.0.1.0/24"
+# }
 
-variable "subnet_availability_zone" {
-  type = string
-  description = "Subnet availability zone eu-west-2a"
-}
-
-variable "subnet_availability_zone2" {
-  type = string
-  description = "Subnet availability zone eu-west-2b"
+variable "subnet_availability_zones" {
+  type = list(string)
+  description = "Subnet availability zones eu-west-2a, eu-west-2b"
 }
 
 variable "vpc_id" {
   type = string
   description = "vpc_id"
 }
+

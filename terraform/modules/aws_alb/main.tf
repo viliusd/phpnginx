@@ -20,33 +20,10 @@ resource "aws_lb" "alb" {
   }
 }
 
-
-resource "aws_lb_target_group" "nginx" {
-  name     = var.name
-  port     = 80
-  protocol = "HTTP"
-  vpc_id   = var.aws_vpc_id
-  stickiness {
-    type = "lb_cookie"
-    enabled         = false
-  }
-}
-
 resource "aws_vpc" "main" {
   cidr_block = var.cidr_block
 }
 
-resource "aws_lb_target_group_attachment" "nginx" {
-  target_group_arn = aws_lb_target_group.nginx.arn
-  target_id        = var.aws_instance_id
-  port             = 80
-}
-
-resource "aws_lb_target_group_attachment" "nginx2" {
-  target_group_arn = aws_lb_target_group.nginx.arn
-  target_id        = var.aws_instance_id2
-  port             = 80
-}
 resource "aws_lb_listener" "front_end" {
   load_balancer_arn = aws_lb.alb.arn
   port              = "80"
@@ -54,6 +31,6 @@ resource "aws_lb_listener" "front_end" {
   
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.nginx.arn
+    target_group_arn = var.aws_lb_target_group_blue_arn
   }
 }

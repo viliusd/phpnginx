@@ -1,35 +1,11 @@
 provider "aws" {}
 
-# resource "aws_vpc" "main" {
-#   cidr_block = var.vpc_cidr_block
-#   enable_dns_hostnames = true
-#   tags = {
-#     Name = "${var.name}-vpc"
-#   }
-# }
-
-resource "aws_subnet" "public_green" {
+resource "aws_subnet" "public_green_blue" {
+  count = length(var.subnet_availability_zones)
   vpc_id     = var.vpc_id
-  cidr_block = var.subnet_cidr_block
-  availability_zone = var.subnet_availability_zone
+  cidr_block = "172.31.${count.index + 60}.0/24"
+  availability_zone = "${data.aws_availability_zones.available.names[count.index]}"
   tags = {
-    Name = "${var.name}-subnet"
+    Name = "${var.name}-${count.index + 60}-subnet"
   }
 }
-
-resource "aws_subnet" "public_blue" {
-  vpc_id     = var.vpc_id
-  cidr_block = var.subnet_cidr_block
-  availability_zone = var.subnet_availability_zone2
-  tags = {
-    Name = "${var.name}-subnet"
-  }
-}
-
-# resource "aws_internet_gateway" "gw" {
-#   vpc_id = var.vpc_id
-
-#   tags = {
-#     Name = "${var.name}-gateway"
-#   }
-# }
