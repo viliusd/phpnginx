@@ -27,5 +27,6 @@ Provide your YOUR_IP which you will be accessing from in `module.aws_security_gr
 -----------------------------------------------------------------------
 Thats it! Run commands in main catalog:
 
+terraform workspace new dev
 terraform init
 terraform apply
