@@ -4,7 +4,7 @@ resource "aws_lb" "alb" {
   name               = "${var.name}-alb"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [var.ec2_aws_security_group, var.ec2_aws_security_group_http]
+  security_groups    = [var.aws_security_group_alb]
   subnets            = var.aws_subnet_id
 
   enable_deletion_protection = true
@@ -20,10 +20,6 @@ resource "aws_lb" "alb" {
   }
 }
 
-resource "aws_vpc" "main" {
-  cidr_block = var.cidr_block
-}
-
 resource "aws_lb_listener" "front_end" {
   load_balancer_arn = aws_lb.alb.arn
   port              = "80"
@@ -31,6 +27,6 @@ resource "aws_lb_listener" "front_end" {
   
   default_action {
     type             = "forward"
-    target_group_arn = var.aws_lb_target_group_blue_arn
+    target_group_arn = var.aws_lb_target_group_arn
   }
 }

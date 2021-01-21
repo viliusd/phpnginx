@@ -7,17 +7,12 @@ variable "name" {
   }
 }
 
-variable "aws_lb_target_group_arn" {
+variable "vpc_id" {
   type = string
-  description = "aws_lb_target_group_arn"
+  description = "AWS VPC id"
 }
 
-variable "aws_subnet_id" {
+variable "ingress_cidr_block" {
   type = list(string)
-  description = "AWS Subnet ids"
-}
-
-variable "aws_security_group_alb" {
-  type = string
-  description = "aws_security_group_alb"
+  description = "list of IP allowed for incoming connections"
 }

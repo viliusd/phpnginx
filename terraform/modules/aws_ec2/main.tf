@@ -9,56 +9,6 @@ resource "random_string" "gen-name" {
   special = false
 }
 
-resource "aws_security_group" "allow_ssh" {
-  name        = "allow_ssh"
-  description = "Allow ssh inbound traffic"
-  vpc_id      = var.vpc_id
-
-  ingress {
-    description = "SSH from VPC"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = var.ingress_cidr_block
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "allow_ssh"
-  }
-}
-
-resource "aws_security_group" "allow_http" {
-  name        = "allow_http"
-  description = "Allow ssh inbound traffic"
-  vpc_id      = var.vpc_id
-
-  ingress {
-    description = "HTTP from VPC"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = var.ingress_cidr_block
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "allow_http"
-  }
-}
-
 resource "aws_key_pair" "communication_key" {
   key_name   = "communication-key"
   public_key = var.public_key
@@ -67,10 +17,10 @@ resource "aws_key_pair" "communication_key" {
 resource "aws_instance" "green" {
   count = var.enable_green_env ? var.green_instance_count : 0
   ami = var.instance_ami_id
-  subnet_id =  "${element(local.subnets, count.index)}"
+  subnet_id =  "${element(var.aws_subnet_id, count.index)}"
   instance_type = var.instance_type
   key_name = aws_key_pair.communication_key.key_name
-  vpc_security_group_ids = [aws_security_group.allow_ssh.id, aws_security_group.allow_http.id]
+  vpc_security_group_ids = [var.aws_security_group_allow_ssh, var.aws_security_group_allow_http_to_instance]
 
   user_data     = <<-EOF
                   #!/bin/bash
@@ -88,10 +38,10 @@ resource "aws_instance" "green" {
 resource "aws_instance" "blue" {
   count = var.enable_blue_env ? var.blue_instance_count : 0
   ami = var.instance_ami_id
-  subnet_id =  "${element(local.subnets, count.index)}"
+  subnet_id =  "${element(var.aws_subnet_id, count.index)}"
   instance_type = var.instance_type
   key_name = aws_key_pair.communication_key.key_name
-  vpc_security_group_ids = [aws_security_group.allow_ssh.id, aws_security_group.allow_http.id]
+  vpc_security_group_ids = [var.aws_security_group_allow_ssh, var.aws_security_group_allow_http_to_instance]
 
   user_data     = <<-EOF
                   #!/bin/bash
@@ -137,12 +87,11 @@ resource "aws_lb_target_group" "blue" {
   port     = 80
   protocol = "HTTP"
   vpc_id   = var.vpc_id
-
+  
   stickiness {
     type = "lb_cookie"
     enabled         = false
   }
-  
   health_check {
     port     = 80
     protocol = "HTTP"
