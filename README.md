@@ -30,3 +30,7 @@ Thats it! Run commands in main catalog:
 terraform workspace new dev
 terraform init
 terraform apply
+
+OUTPUT VALUES
+
+*aws_lb_dns* is your ALB DNS name
