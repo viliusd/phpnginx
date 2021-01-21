@@ -13,17 +13,10 @@ provider "aws" {
   shared_credentials_file = "credentials.sec"
 }
 
-provider "aws" {
-  alias = "cloudfront"
-  region = "us-east-1"
-  shared_credentials_file = "credentials.sec"
-}
-
-
 resource "aws_default_vpc" "default" {
   # (resource arguments)
 }
 
 #COMMANDS TO be executed prior deployment
 #aws ec2 create-default-vpc --region eu-west-2
-#terraform import aws_default_vpc.default vpc-0c01356817b23e43e
+#terraform import aws_default_vpc.default vpc_default_id

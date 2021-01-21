@@ -15,7 +15,7 @@ module "aws_security_groups" {
     }   
     name = local.env_name
     vpc_id = aws_default_vpc.default.id
-    ingress_cidr_block = ["85.206.68.114/32", "172.31.0.0/16"] #my home IP 85.206.68.114/32
+    ingress_cidr_block = ["YOUR_IP", "172.31.0.0/16"] #my home IP
 }
 module "aws_ec2" {
     source = "../modules/aws_ec2"

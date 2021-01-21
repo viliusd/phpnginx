@@ -3,3 +3,5 @@ credentials.yml
 .terraform
 .idea
 .DS_Store
+.terraform.tfstate
+.terraform.tfstate.backup
