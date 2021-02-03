@@ -1,3 +1,4 @@
+#Creating new AWS subnet in two availability zones
 module "aws_subnet" {
   source = "../modules/aws_subnet"
   providers = {
@@ -8,6 +9,7 @@ module "aws_subnet" {
   subnet_availability_zones = ["eu-west-2a", "eu-west-2b"]
 }
 
+#Creating security groups to be reused in other modules
 module "aws_security_groups" {
   source = "../modules/aws_security_groups"
   providers = {
@@ -17,6 +19,8 @@ module "aws_security_groups" {
   vpc_id             = aws_default_vpc.default.id
   ingress_cidr_block = ["YOUR_IP", "172.31.0.0/16"] #my home IP
 }
+
+#Creating AWS instances in this example in total 4 (2 green, 2 blue) and attaching security groups
 module "aws_ec2" {
   source = "../modules/aws_ec2"
   providers = {
@@ -38,6 +42,7 @@ module "aws_ec2" {
   public_key                                = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCeAP7qQic1i8ggCE8t0hg6c5CQcffJ6XrCmogS/NMGACW1QmcisenZAANbvEtT4E+iSVzT/VTFW+F8gKBF5nYRUrDzLJ/hn9khyKpmHiILvLke8ety2iuD+/HclTmZipbyljg6WTP8tgltD9CIVqmqgz12G6dW4Z3ylTxT6Hqm297SrtG9X27FyNGnG2TjvARG+JNsHhhbrEj4KdcM7VhVKNLa+hghhm3vuqU3X7Voab7+ZS237JxywVdRa0W98jf6vmUbm1QNXO8CwX/YnstE8qD/LrzIb9S9Z2X/UF5BeOXB0ODcMSJua2xhcIgumxVX0g2tOIPDrh4wAebDTmcf" #public RSA key
 }
 
+#Creating AWS ALB, note commented out blue arn therefor it will point now to Green EC2 instances group
 module "aws_alb" {
   source = "../modules/aws_alb"
   providers = {

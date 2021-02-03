@@ -15,7 +15,8 @@ Terraform version required
 "v0.13.3"
 -----------------------------------------------------------------------
 #COMMANDS TO be executed prior deployment
-#This command will give you default VPC ID
+
+#If you do not have default VPC this command will create and output your default VPC ID
 `aws ec2 create-default-vpc --region eu-west-2`
 
 Import default VPC id
