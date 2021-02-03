@@ -22,7 +22,9 @@ Import default VPC id
 `terraform import aws_default_vpc.default vpc_default_id`
 -----------------------------------------------------------------------
 In order to access VMs 
+
 Provide your RSA public key in `module.aws_ec2.public_key`
+
 Provide your YOUR_IP which you will be accessing from in `module.aws_security_groups.ingress_cidr_block`
 -----------------------------------------------------------------------
 Thats it! Run commands in main catalog:
