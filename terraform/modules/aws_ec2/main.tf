@@ -22,10 +22,44 @@ resource "aws_instance" "green" {
   key_name = aws_key_pair.communication_key.key_name
   vpc_security_group_ids = [var.aws_security_group_allow_ssh, var.aws_security_group_allow_http_to_instance]
 
+  # provisioner "file" {
+  #   source = "files/sites-available-default"
+  #   destination = "/tmp/default"
+  # }
+  
   user_data     = <<-EOF
                   #!/bin/bash
+                  sudo apt-get update
+                  sudo apt install npm -y
                   sudo apt install nginx -y
                   sudo ufw allow 'Nginx HTTP'
+                  git clone https://github.com/Engagecraft-Solutions/demo-frontend.git
+                  sudo apt install npm -y
+                  cd demo-frontend 
+                  npm install
+                  npm run build
+                  sudo cp -r build/* /var/www/html/
+                  echo "server {
+                                listen 80 default_server;
+                                listen [::]:80 default_server;
+                                root /var/www/html;
+                        
+                                index index.html index.htm index.nginx-debian.html;
+                        
+                                server_name _;
+                        
+                                location / {
+                                        try_files $uri $uri/ =404;
+                                }
+                        
+                                location index.html {
+                                        expires 5m;
+                                }
+                        
+                                location ~* \.(jpg|js)$ {
+                                        expires 7d;
+                                }
+                        }" > /etc/nginx/sites-available/default
                   EOF
 
   tags = {
@@ -43,10 +77,19 @@ resource "aws_instance" "blue" {
   key_name = aws_key_pair.communication_key.key_name
   vpc_security_group_ids = [var.aws_security_group_allow_ssh, var.aws_security_group_allow_http_to_instance]
 
+
   user_data     = <<-EOF
                   #!/bin/bash
+                  sudo apt-get update
+                  sudo apt install npm -y
                   sudo apt install nginx -y
                   sudo ufw allow 'Nginx HTTP'
+                  git clone https://github.com/react-boilerplate/react-boilerplate.git
+                  sudo apt install npm -y
+                  cd react-boilerplate/ 
+                  npm install
+                  npm run build
+                  sudo cp -r build/* /var/www/html/
                   EOF
 
   tags = {
